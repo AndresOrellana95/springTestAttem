@@ -1,0 +1,139 @@
+
+<div class="container-fluid">
+    <div class="row justify-content-end">
+        <div class="col-auto">
+            <h6>Bienvenido </h6>
+        </div>
+        <div class="col-auto">
+            <button type="button" (click)="signOut()" class="btn btn-outline-warning btn-sm float-right">Cerrar sesión</button>
+        </div>
+    </div>
+</div>
+<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+    <li [ngbNavItem]="1">
+      <a ngbNavLink>Consulta de donaciones</a>
+      <ng-template ngbNavContent>
+          <div class="container">
+            <div class="row justify-content-between">
+                <div class="col">
+                    <h5>Consulte sus últimas donaciones</h5>
+                </div>
+            </div>
+            <div class="row">
+                <form class="form-inline">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <label for="dp">Desde</label>
+                        <input class="form-control" placeholder="yyyy-mm-dd"
+                            id="dp" name="dp" [(ngModel)]="dateFilter" ngbDatepicker #d="ngbDatepicker">
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">+</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group pl-2">
+                        <div class="input-group">
+                            <label for="dpEnd">Hasta</label>
+                            <input class="form-control" placeholder="yyyy-mm-dd"
+                                id="dpEnd" name="dpEnd" [(ngModel)]="dateFilterEnd" ngbDatepicker #dend="ngbDatepicker">
+                            <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar" (click)="dend.toggle()" type="button">+</button>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="form-group pl-2">
+                        <input type="button" (click)="filterByDates()" class="btn btn-primary float-right" value="Consultar">
+                    </div>
+                </form>
+            </div>
+            <div class="row">
+                <div class="col">
+                  <div class="d-flex justify-content-between p-2">
+                      <ngb-pagination [collectionSize]="donationList.length" [(page)]="page" [pageSize]="pageSize" (pageChange)="refreshDonations()">
+                      </ngb-pagination>
+                    
+                      <select class="custom-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshDonations()">
+                          <option [ngValue]="10">5 por página</option>
+                          <option [ngValue]="25">10 por página</option>
+                      </select>
+                  </div>
+                  <table class="table table-striped">
+                      <thead>
+                          <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">Fecha de registro</th>
+                              <th scope="col">Tarjeta</th>
+                              <th scope="col">Institución</th>
+                              <th scope="col">Monto</th>
+                              <th scope="col">País</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let don of donationListT">
+                              <th scope="row">{{ don.ident }}</th>
+                              <td>{{ don.execution }}</td>
+                              <td>{{ don.credit }}</td>
+                              <td>{{ don.company }}</td>
+                              <td>{{ don.amount }}</td>
+                              <td>{{ don.country }}</td>
+                          </tr>
+                      </tbody>
+                  </table>
+                </div>
+            </div>
+          </div>
+      </ng-template>
+    </li>
+    <li [ngbNavItem]="2">
+        <a ngbNavLink>Realizar donación</a>
+        <ng-template ngbNavContent>
+            <div class="container">
+                <div  class="row justify-content-between">
+                  <div class="col">
+                      <h6>Para donar llene el siguiente formulario:</h6>
+                  </div>
+                </div>
+                <div  class="row pt-3">
+                    <div class="col">
+                        <label for="countries">Países:</label>
+                        <select [(ngModel)]="selectedCountry" id="countries" (change)="findCompanies()">
+                            <option value="0" selected>Seleccione un país</option>
+                            <option *ngFor="let country of countryList" value="{{country.idCountry}}">{{ country.name }}</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="inst">Instituciones:</label>
+                        <select [(ngModel)]="selectedCompany" id="inst">
+                            <option *ngFor="let comp of companyList" value="{{comp.id}}">{{ comp.name }}</option>
+                        </select>
+                    </div>
+                </div>
+                <form [formGroup]="creditCardForm" (ngSubmit)="onRegister(creditCardForm)">
+                    <div class="form-group">
+                        <label for="amount">Monto:</label>
+                        <input type="number" min="0.0" step="0.25" class="form-control" id="amount" formControlName="amount">
+                    </div>
+                    <div class="form-group">
+                        <label for="owner">Titular de la tarjeta:</label>
+                        <input type="text" class="form-control" id="owner" formControlName="owner">
+                    </div>
+                    <div class="form-group">
+                        <label for="number">Número:</label>
+                        <input type="text" class="form-control" id="number" formControlName="number">
+                    </div>
+                    <div class="form-group">
+                        <label for="expiration">Expira:</label>
+                        <input type="text" placeholder="Ej: 0824" class="form-control" id="expiration" formControlName="expiration">
+                    </div>
+                    <div class="form-group">
+                        <label for="secret">Código seguridad:</label>
+                        <input type="text" placeholder="Ej: 111" class="form-control" id="secret" formControlName="secret">
+                    </div>
+                    <button type="submit" [disabled]="!creditCardForm.valid" class="btn btn-primary float-right">Registrar</button>
+                </form>
+            </div>
+        </ng-template>
+    </li>
+</ul>
+  
+<div [ngbNavOutlet]="nav" class="mt-2"></div>

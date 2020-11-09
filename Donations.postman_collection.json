@@ -1,0 +1,237 @@
+{
+	"info": {
+		"_postman_id": "4bb2431a-fefb-46bd-a452-61b97ab548ed",
+		"name": "Donations",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "loginRequest",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user\":\"prueba@gmail.com\",\r\n    \"password\":\"s3cr3tK3y4adm1nUs3r\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8085/donations-control/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"donations-control",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "registerUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"document\":\"051755829\",\r\n    \"names\":\"Andres Enrique\",\r\n    \"lastnames\":\"Orellana Martinez\",\r\n    \"password\":\"pruebaTest\",\r\n    \"email\":\"andres.aeom@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8085/donations-control/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"donations-control",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getCountries",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJBbmRyZXMgRW5yaXF1ZSIsImxldmVsIjoyLCJleHAiOjE2MDQ5NTUyOTAsImlhdCI6MTYwNDkxOTI5MCwiZW1haWwiOiJhbmRyZXMuYWVvbUBnbWFpbC5jb20ifQ.FK08ylRULkwYgw9DA8ggENRK4K0BRRQ2MIqPeN7cyUM",
+						"type": "text"
+					},
+					{
+						"key": "username",
+						"value": "Andres Enrique",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8085/donations-control/donations/getCountries",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"donations-control",
+						"donations",
+						"getCountries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getCompanylistByCountry",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJBbmRyZXMgRW5yaXF1ZSIsImxldmVsIjoyLCJleHAiOjE2MDQ5NDI0NTAsImlhdCI6MTYwNDkwNjQ1MCwiZW1haWwiOiJhbmRyZXMuYWVvbUBnbWFpbC5jb20ifQ.N9ndaEWTl6GUmzm8jkfFTDjC5WegcMvyG8sDTOINXAw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8085/donations-control/donations/getCompanylist/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"donations-control",
+						"donations",
+						"getCompanylist",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "donate",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJBbmRyZXMgRW5yaXF1ZSIsImxldmVsIjoyLCJleHAiOjE2MDQ5NDU0MzgsImlhdCI6MTYwNDkwOTQzOCwiZW1haWwiOiJhbmRyZXMuYWVvbUBnbWFpbC5jb20ifQ._F0YA-hSrJ73neNNN62DclvBzVxlpsaWdOssFX4ZtmU",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"company\":5,\r\n    \"country\":3,\r\n    \"amount\":10.15,\r\n    \"creditCard\": {\r\n        \"number\":\"1234567891012112\",\r\n        \"expiration\":\"0824\",\r\n        \"secret\":\"113\",\r\n        \"owner\":\"Andres Orellana\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8085/donations-control/donations/donate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"donations-control",
+						"donations",
+						"donate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getDonations",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJBbmRyZXMgRW5yaXF1ZSIsImxldmVsIjoyLCJleHAiOjE2MDQ5NDI0NTAsImlhdCI6MTYwNDkwNjQ1MCwiZW1haWwiOiJhbmRyZXMuYWVvbUBnbWFpbC5jb20ifQ.N9ndaEWTl6GUmzm8jkfFTDjC5WegcMvyG8sDTOINXAw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"start\":\"2020-11-01\",\r\n    \"end\":\"2020-11-11\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8085/donations-control/donations/getDonations",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"donations-control",
+						"donations",
+						"getDonations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "generalInformation",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJBZG1pbiIsImxldmVsIjoxLCJleHAiOjE2MDQ5NjIwNjEsImlhdCI6MTYwNDkyNjA2MSwiZW1haWwiOiJwcnVlYmFAZ21haWwuY29tIn0.dST5oz3Ewk7wB-mT7DlhY2IH36g7LFuUHNgrnpeEWtU",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"start\": \"2020-11-01T06:00:00.000Z\",\r\n    \"end\": \"2020-11-10T05:59:59.000Z\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8085/donations-control/donations/getGeneralInfo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"donations-control",
+						"donations",
+						"getGeneralInfo"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
